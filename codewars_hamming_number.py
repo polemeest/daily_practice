@@ -12,4 +12,4 @@ def hamming(n):
             count5 += 1
     return res[-1]
 
-print(hamming(9))
+print(hamming(4))
