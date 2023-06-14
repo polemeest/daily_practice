@@ -1,31 +1,31 @@
 from typing import List
-# class Solution:
-#     def maxProfit(self, prices: List[int]) -> int:
-#         value = prices[0]
-#         profit = 0
-#         for v in prices:
-#             if v < value:
-#                 value = v
-#             if v > value:
-#                 profit += v - value
-#                 value = v
-#         return profit
-
-
 class Solution:
     def maxProfit(self, prices: List[int]) -> int:
-        n=len(prices)
-        # dp=[[0]*2 for i in range(n+1)]
-        ahd=[0]*2
-        for i in range(n-1,-1,-1):
-            curr=[0]*2
-            for j in range(1,-1,-1):
-                if j==1:
-                    curr[j]=max(ahd[j],ahd[0]-prices[i])
-                else:
-                    curr[j]=max(ahd[j],ahd[1]+prices[i])
-            ahd=curr
-        return ahd[1]
+        value = prices[0]
+        profit = 0
+        for v in prices:
+            if v < value:
+                value = v
+            if v > value:
+                profit += v - value
+                value = v
+        return profit
+
+
+# class Solution:
+#     def maxProfit(self, prices: List[int]) -> int:
+#         n=len(prices)
+#         # dp=[[0]*2 for i in range(n+1)]
+#         ahd=[0]*2
+#         for i in range(n-1,-1,-1):
+#             curr=[0]*2
+#             for j in range(1,-1,-1):
+#                 if j==1:
+#                     curr[j]=max(ahd[j],ahd[0]-prices[i])
+#                 else:
+#                     curr[j]=max(ahd[j],ahd[1]+prices[i])
+#             ahd=curr
+#         return ahd[1]
 
 
 
