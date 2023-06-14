@@ -1,19 +1,34 @@
-from math import floor
-def sudoku(puzzle):
+def sudoku(puzzle, step):
     """return the solved puzzle as a 2d array of 9 x 9"""
+    for x in range(9):
+        for y in range(9):
+            if puzzle[x][y] == 0:
+                for n in range(1, 10):
+                    if is_possible(x, y, n, puzzle):
+                        puzzle[x][y] = n
+                        if sudoku(puzzle, step + 1):
+                            return puzzle
+                        else:
+                            puzzle[x][y] = 0
+                    else:
+                        puzzle[x][y] = 0
+                return print(step)
+    return puzzle
 
 
-
-
-    return
-
-
-
-def is_posiible(x, y, n):
-    for i in range()
-
-    # [print(row) for row in puzzle]
-
+def is_possible(x, y, n, puzzle):
+    for i in range(9):
+        if puzzle[x][i] == n:
+            return False
+    for i in range(9):
+        if puzzle[i][y] == n:
+            return False
+    x0, y0 = (x // 3) * 3, (y // 3) * 3
+    for x in range(3):
+        for y in range(3):
+            if puzzle[x + x0][y + y0] == n:
+                return False
+    return True
 
 
 puzzle = [[5,3,0,0,7,0,0,0,0],
@@ -26,4 +41,4 @@ puzzle = [[5,3,0,0,7,0,0,0,0],
           [0,0,0,4,1,9,0,0,5],
           [0,0,0,0,8,0,0,7,9]]
 
-sudoku(puzzle)
+print(sudoku(puzzle, 0))
