@@ -6,13 +6,9 @@ def sudoku(puzzle, step):
                 for n in range(1, 10):
                     if is_possible(x, y, n, puzzle):
                         puzzle[x][y] = n
-                        if sudoku(puzzle, step + 1):
-                            return puzzle, step
-                        else:
-                            puzzle[x][y] = 0
                     else:
                         puzzle[x][y] = 0
-                return print(step)
+                return 
     return puzzle
 
 
@@ -32,17 +28,14 @@ def is_possible(x, y, n, puzzle):
 
 
 # def sudoku(P):
-
 #     for row, col in [(r, c) for r in range(9) for c in range(9) if not P[r][c]]:
-
 #         rr, cc = (row // 3) * 3, (col // 3) * 3
-
 #         use = {1,2,3,4,5,6,7,8,9} - ({P[row][c] for c in range(9)} | {P[r][col] for r in range(9)} | {P[rr+r][cc+c] for r in range(3) for c in range(3)})
-
 #         if len(use) == 1:
 #             P[row][col] = use.pop()
 #             return sudoku(P)
 #     return P
+
 
 puzzle = [[5,3,0,0,7,0,0,0,0],
           [6,0,0,1,9,5,0,0,0],
