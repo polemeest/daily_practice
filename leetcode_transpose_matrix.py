@@ -7,7 +7,7 @@ class Solution:
             for j, vv in enumerate(v):
                 my[j][i] = matrix[i][j]
         return my
-    
+    f
 
 a = Solution()
 print(a.transpose([[1,2,3],[4,5,6]]))
