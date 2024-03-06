@@ -5,9 +5,9 @@ class Solution:
     def findMinArrowShots(self, points: List[List[int]]) -> int:
         if not points:
             return 0
-        points.sort(key=lambda x: x[0])
-        res = 1
+        points.sort()
         left = points[0]
+        res = 1
         for right in points[1:]:
             if right[0] > left[1]:
                 res += 1
@@ -15,7 +15,7 @@ class Solution:
             else:
                 left[1] = min(left[1], right[1])
         return res
-
+    
 
 a = Solution()
 print(a.findMinArrowShots(points = [[9,12],[1,10],[4,11],[8,12],[3,9],[6,9],[6,7]]))
