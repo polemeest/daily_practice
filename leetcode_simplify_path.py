@@ -8,10 +8,7 @@ class Solution:
                     stack.pop()
             elif el not in ('.', '/', ''):
                 stack.append(el)
-            # else:
-                
 
-        
         
         print("/" + "/".join(stack))
 
