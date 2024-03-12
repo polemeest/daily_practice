@@ -1,86 +1,27 @@
 class Solution:
     def calculate(self, s: str) -> int:
-        def process_input(s: str) -> list:
-            res = []
-            negative = False
-            for item in s.strip():
+        result, current, sign, stack = 0, 0, 1, []
+
+        for item in s:
+            if item.isdigit():
+                current += int(item)
+            elif item in "+-":
+                result += current * sign
+                current = 0
                 if item == "-":
-                    if res and res[-1] == "-":
-                        negative = True
-                if negative and not item.isdigit():
-                    negative = False
-                if negative:
-                    res[-1] += item
-                if item != " ":
-                    res.append(item)
-            return res
-        
-
-        def process_parenteses(s: str) -> str:
-            stack = []
-            for item in s:
-                if item == ")" and stack:
-                    expression = []
-                    while True:
-                        el = stack.pop()
-                        if el == "(":
-                            break
-                        expression.append(el)
-                    stack.append(parenteses_calculation(reversed(expression)))
+                    sign = -1
                 else:
-                    stack.append(item)
-            return stack
-
-
-        def parenteses_calculation(s: list) -> int:
-            stack = []
-            operand = False
-            for item in s:
-                if item in ("+", "-"):
-                    operand = item
-                else:
-                    stack.append(int(item))
-                    if operand:
-                        match operand:
-                            case "+":
-                                stack.append(stack.pop(-2) + stack.pop(-1))
-                            case "-":
-                                stack.append(stack.pop(-2) - stack.pop(-1))
-                            case _:
-                                pass
-                        operand = False
-            return stack[0]
-        
-
-        def resolve(s: list) -> int:
-            temp = []
-            negate = False
-            for item in s:
-                if not temp and item == "-":
-                    negate = True
-                elif item != "+" and item != "-":
-                    if negate:
-                        temp.append(-int(item))
-                        negate = False
-                    else:
-                        temp.append(item)
-                else:
-                    temp.append(item)
-            if len(temp) > 1:
-                temp = parenteses_calculation(temp)
-            else:
-                temp = temp[0]
-            return temp
-        
-
-        if "+" in s or "-" in s or "(" in s:
-            s = process_input(s)
-            if "(" in s:
-                s = process_parenteses(s)
-            s = resolve(s)
-        
-
-        return int(s)
+                    sign = 1
+            elif item == "(":
+                stack.append(result)
+                stack.append(sign)
+                result, sign = 0, 1
+            elif item == ")":
+                result += current * sign
+                result *= stack.pop()
+                result += stack.pop()
+                current = 0
+        return result + current * sign
 
 
 
@@ -91,3 +32,89 @@ print(a.calculate(s = "- (3 + (4 + 5))"))
 print(a.calculate(s = "1 + 1"))
 print(a.calculate(s = " 2-1 + 2 "))
 print(a.calculate(s = "-2+ 1"))
+
+
+
+# class Solution:
+#     def calculate(self, s: str) -> int:
+#         def process_input(s: str) -> list:
+#             res = []
+#             negative = False
+#             for item in s.strip():
+#                 if item == "-":
+#                     if res and res[-1] == "-":
+#                         negative = True
+#                 if negative and not item.isdigit():
+#                     negative = False
+#                 if negative:
+#                     res[-1] += item
+#                 if item != " ":
+#                     res.append(item)
+#             return res
+        
+
+#         def process_parenteses(s: str) -> str:
+#             stack = []
+#             for item in s:
+#                 if item == ")" and stack:
+#                     expression = []
+#                     while True:
+#                         el = stack.pop()
+#                         if el == "(":
+#                             break
+#                         expression.append(el)
+#                     stack.append(parenteses_calculation(reversed(expression)))
+#                 else:
+#                     stack.append(item)
+#             return stack
+
+
+#         def parenteses_calculation(s: list) -> int:
+#             stack = []
+#             operand = False
+#             for item in s:
+#                 if item in ("+", "-"):
+#                     operand = item
+#                 else:
+#                     stack.append(int(item))
+#                     if operand:
+#                         match operand:
+#                             case "+":
+#                                 stack.append(stack.pop(-2) + stack.pop(-1))
+#                             case "-":
+#                                 stack.append(stack.pop(-2) - stack.pop(-1))
+#                             case _:
+#                                 pass
+#                         operand = False
+#             return stack[0]
+        
+
+#         def resolve(s: list) -> int:
+#             temp = []
+#             negate = False
+#             for item in s:
+#                 if not temp and item == "-":
+#                     negate = True
+#                 elif item != "+" and item != "-":
+#                     if negate:
+#                         temp.append(-int(item))
+#                         negate = False
+#                     else:
+#                         temp.append(item)
+#                 else:
+#                     temp.append(item)
+#             if len(temp) > 1:
+#                 temp = parenteses_calculation(temp)
+#             else:
+#                 temp = temp[0]
+#             return temp
+        
+
+#         if "+" in s or "-" in s or "(" in s:
+#             s = process_input(s)
+#             if "(" in s:
+#                 s = process_parenteses(s)
+#             s = resolve(s)
+        
+
+#         return int(s)
