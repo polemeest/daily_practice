@@ -21,13 +21,13 @@ node4.next = node1
 
 class Solution:
     def hasCycle(self, head: Optional[ListNode]) -> bool:
-        pointer = head
-        while pointer:
-            if pointer.val == "seen":
+        node = head
+        while node:
+            if node.val == "seen":
                 return True
             else:
-                pointer.val == "seen"
-            pointer = pointer.next
+                node.val = "seen"
+            node = node.next
         return False
 
 
