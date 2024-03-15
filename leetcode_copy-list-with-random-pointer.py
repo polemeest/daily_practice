@@ -17,34 +17,32 @@ head.next.next.next.random = node1.next.next
 head.next.next.next.next.random = node1
 
 
+
 class Solution:
-    def copyRandomList(self, head: Optional[Node]) -> Optional[Node]:
-        head_head = head
-        copy_head = Node(head_head.val)
-        copy = copy_head
-        head_map, pointer = {0: head.random}, 1
-        head_lst = [head]
-
-        while head.next:
-            head = head.next
-            head_map[pointer] = head.random
-            head_lst.append(head)
-            copy.next = Node(head.val)
-            copy, pointer = copy.next, pointer + 1
-        print(copy)
-        copy, pointer = copy_head, 0
-        while copy:
-            copy_random = copy_head
-            target = head_map[pointer]
-            if target:
-                target_ind = head_lst.index(target)
-                for i in range(target_ind):
-                    copy_random = copy_random.next
-                copy.random = copy_random
-            copy, pointer = copy.next, pointer + 1
+    def __init__(self):
+        self.visited = {}
 
 
-        return copy_head
+    def copyRandomList(self, head):
+        if not head:
+            return head
+        
+        old_to_copy = {None : None}
+
+        curr = head
+        while curr:
+            copy = Node(curr.val)
+            old_to_copy[curr] = copy
+            curr = curr.next
+        
+        curr = head
+        while curr:
+            copy = old_to_copy[curr]
+            copy.next = old_to_copy[curr.next]
+            copy.random = old_to_copy[curr.random]
+            curr = curr.next
+        
+        return old_to_copy[head]
 
 a = Solution()
 print(a.copyRandomList(head = node1))
