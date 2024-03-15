@@ -19,30 +19,22 @@ head.next.next.next.next.random = node1
 
 
 class Solution:
-    def __init__(self):
-        self.visited = {}
+    def copyRandomList(self, head: 'Optional[Node]') -> 'Optional[Node]':
+        if not head: return head
 
+        head_head = head
+        head_map = {None: None}
 
-    def copyRandomList(self, head):
-        if not head:
-            return head
-        
-        old_to_copy = {None : None}
-
-        curr = head
-        while curr:
-            copy = Node(curr.val)
-            old_to_copy[curr] = copy
-            curr = curr.next
-        
-        curr = head
-        while curr:
-            copy = old_to_copy[curr]
-            copy.next = old_to_copy[curr.next]
-            copy.random = old_to_copy[curr.random]
-            curr = curr.next
-        
-        return old_to_copy[head]
+        while head:
+            copy = Node(head.val)
+            head_map[head] = copy
+            head = head.next
+        head = head_head
+        while head:
+            copy = head_map[head]
+            copy.next, copy.random = head_map[head.next], head_map[head.random]
+            head = head.next
+        return head_map[head_head]
 
 a = Solution()
 print(a.copyRandomList(head = node1))
