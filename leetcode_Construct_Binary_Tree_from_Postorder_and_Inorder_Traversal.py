@@ -36,4 +36,4 @@ def treeprint(tree: TreeNode) -> None:
 
 
 a = Solution()
-treeprint(a.buildTree([9, 3, 15, 20, 7], [9, 15, 7, 20, 3]))
+treeprint(a.buildTree([9, 3, 15, 20, 7], [9, 15, 7, 20, 3]))  # 14.05.24
