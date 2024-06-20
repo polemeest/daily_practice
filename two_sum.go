@@ -24,6 +24,6 @@ func merge(nums1 []int, m int, nums2 []int, n int) {
 // 	fmt.Println(nums1)
 // }
 
-func main() {
+func two_sum() {
 	merge([]int{1, 2, 3, 0, 0, 0}, 3, []int{2, 5, 6}, 3)
 }
